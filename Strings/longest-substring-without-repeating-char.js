@@ -14,7 +14,7 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
+var lengthOfLongestSubstringBF = function(s) {
     if (s.length < 2) {
         return s.length;
     }
@@ -42,3 +42,29 @@ var lengthOfLongestSubstring = function(s) {
 
     return longest; 
 };
+
+// Sliding window technique with hashmap of characters with index- Time Complexity - O(n)
+// Space Complexity - O(1) -> since there are only 26 characters, the memory doesn't scale with input size.
+var lengthOfLongestSubstring = function (s) {
+    let longest = 0;
+    let leftPointer = 0;
+    let rightPointer = 0;
+    let cache = {};
+
+    while (rightPointer < s.length) {
+        // Duplicate Identification
+        if (cache[s[rightPointer]] !== undefined && cache[s[rightPointer]] >= leftPointer) {
+            // move left pointer to the index after the duplicate
+            leftPointer = cache[s[rightPointer]] + 1;
+        } 
+        // Assigning the index to the cache
+        cache[s[rightPointer]] = rightPointer;
+        // Max of longest
+        const currentLength = rightPointer - leftPointer + 1;
+        longest = Math.max(longest, currentLength);
+        
+        rightPointer++;
+    }
+    return longest;
+}
+
