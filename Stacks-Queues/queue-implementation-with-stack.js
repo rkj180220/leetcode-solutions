@@ -117,3 +117,38 @@ class MyQueue {
  * var param_3 = obj.peek()
  * var param_4 = obj.empty()
  */
+
+// Alternate approach
+class MyQueue {
+    constructor() {
+        this.in = [];
+        this.out = [];
+    }
+
+    push(val) {
+        this.in.push(val);
+    }
+
+    pop() {
+        if (this.out.length === 0) {
+            while(this.in.length) {
+                this.out.push(this.in.pop());
+            }
+        }
+        return this.out.pop();
+    }
+
+    peek() {
+        if (this.out.length === 0) {
+            while(this.in.length) {
+                this.out.push(this.in.pop());
+            }
+        }
+        return this.out[this.out.length - 1];
+    }
+
+    empty() {
+        return this.in.length === 0 && this.out.length === 0;
+    }
+
+}
