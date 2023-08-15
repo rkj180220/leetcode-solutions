@@ -39,6 +39,9 @@ const quickSelect = function(array, left, right, idxToFind) {
             return quickSelect(array, partitionIdx + 1, right, idxToFind); // Search right subarray
         }
     }
+
+    // If the array length is 1
+    return array[idxToFind];
 };
 
 /**
